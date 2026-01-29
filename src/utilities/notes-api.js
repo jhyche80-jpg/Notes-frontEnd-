@@ -24,3 +24,21 @@ export async function createNote(formData) {
         console.error(error);
     }
 }
+
+export async function deleteNote(id) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/notes/${id}`, {
+        method: "DELETE"
+    });
+    if (!response.ok) throw new Error("Failed to delete note");
+    return await response.json();
+}
+
+export async function updateNote(id, data) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/notes/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) throw new Error("Failed to update note");
+    return await response.json();
+}
